@@ -1,31 +1,30 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+
+
 
 
 public class TestConnect {
 	public static void main(String[] args) {
-        String host = "bs5h14wg6zljcu2uhmfm-mysql.services.clever-cloud.com";
-        String databaseName = "bs5h14wg6zljcu2uhmfm";
-        String user = "uyt4rlqm8ad5w1yp";
-        String password = "5I1kmQYH8b8AvRHdXhIL";
-        int port = 3306;
-
-        String connectionString = "jdbc:mysql://" + host + ":" + port + "/" + databaseName;
-
-        try {
-            // Kết nối đến cơ sở dữ liệu
-            Connection connection = DriverManager.getConnection(connectionString, user, password);
-
-            if (connection != null) {
-                System.out.println("Kết nối thành công đến cơ sở dữ liệu MySQL!");
-                connection.close(); // Đóng kết nối sau khi sử dụng
-            }
-        } catch (SQLException e) {
-            System.out.println("Kết nối đến cơ sở dữ liệu thất bại!");
-            e.printStackTrace();
-        }
+		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("bs5h14wg6zljcu2uhmfm");
+	        EntityManager em = emf.createEntityManager();
+	        
+	        TypedQuery<Favorite> query = em.createQuery( "SELECT f FROM Favorite f",Favorite.class);
+	 
+	        List<Favorite> favorites= query.getResultList();
+	        for (Favorite favorite : favorites) {
+	            System.out.println("Favorite ID: " + favorite.getId());
+	            System.out.println("Liked Date: " + favorite.getLikedate());
+	            // In thêm các thông tin khác nếu cần
+	        }
+	        
+	        em.close();
+	        emf.close();
     }
 }

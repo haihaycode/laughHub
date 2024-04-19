@@ -2,32 +2,33 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
+
 
 /**
  * The persistent class for the favorite database table.
  * 
  */
 @Entity
-@Table(name = "favorite", uniqueConstraints = @UniqueConstraint(columnNames = {"userid", "videoid"}))
-@NamedQuery(name = "Favorite.findAll", query = "SELECT f FROM Favorite f")
+@Table(name="favorite")
+@NamedQuery(name="Favorite.findAll", query="SELECT f FROM Favorite f")
 public class Favorite implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private Timestamp likedate;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date likedate;
 
-	// bi-directional many-to-one association to User
+	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name = "userid")
+	@JoinColumn(name="userid")
 	private User user;
 
-	// bi-directional many-to-one association to Video
+	//bi-directional many-to-one association to Video
 	@ManyToOne
-	@JoinColumn(name = "videoid" )
+	@JoinColumn(name="videoid")
 	private Video video;
 
 	public Favorite() {
@@ -41,11 +42,11 @@ public class Favorite implements Serializable {
 		this.id = id;
 	}
 
-	public Timestamp getLikedate() {
+	public Date getLikedate() {
 		return this.likedate;
 	}
 
-	public void setLikedate(Timestamp likedate) {
+	public void setLikedate(Date likedate) {
 		this.likedate = likedate;
 	}
 
@@ -65,5 +66,4 @@ public class Favorite implements Serializable {
 		this.video = video;
 	}
 
-	
 }

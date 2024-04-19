@@ -1,10 +1,12 @@
 /**
  * LOGIC FRONT END
  */
-
 var app = angular.module('myApp', []);
 app.controller('Ctrls', function($scope, $rootScope, $window, $http, $timeout) {
 	//LOADING
+
+
+
 	$scope.startLoad = function(button) {
 		// Disable the button
 		$(button).prop("disabled", true);
@@ -119,6 +121,9 @@ app.controller('Ctrls', function($scope, $rootScope, $window, $http, $timeout) {
 			.then(function(response) {
 				toastr.success(response.data);
 				countdown();
+				setTimeout(function() {
+					$window.location.href = '/LaughHub/login';
+				}, 2000);
 			})
 			.catch(function(error) {
 				$scope.endLoad(event.target);
@@ -127,6 +132,97 @@ app.controller('Ctrls', function($scope, $rootScope, $window, $http, $timeout) {
 				$scope.buttonText = "Gửi OTP"; // Đặt lại nút "Gửi OTP" nếu gặp lỗi khi gọi API
 			});
 	};
+
+	$scope.like = function(videoId, event) {
+		$http.post('/LaughHub/api/like', {
+			videoId: videoId,
+		})
+			.then(function(response) {
+				var likeCount = response.data.likeCount;
+
+				// Hiển thị số lượt like hoặc thực hiện các hành động khác với dữ liệu
+				toastr.success("Like video thành công");
+
+
+				var parentElement = $(event.target).closest('.video-card-body');
+				var likeCountElement = parentElement.find('.info .likeCount');
+				var like = $(event.target).closest('.btn-danger').find('.likeCount');
+				// Thiết lập số lượt like mới
+				likeCountElement.text(likeCount);
+				like.text(likeCount);
+				console.log(likeCountElement)
+
+
+
+			})
+			.catch(function(error) {
+				toastr.warning(error.data);
+				console.log(error)
+			});
+	}
+
+	$scope.Unlike = function(videoId, event) {
+		$http.post('/LaughHub/api/Unlike', {
+			videoId: videoId,
+		})
+			.then(function(response) {
+				console.log(response.data)
+				toastr.success("Bỏ like video thành công");
+				var videoCard = $(event.target).closest('.remove-itemt');
+				console.log(videoCard)
+				if (videoCard !== null) {
+					videoCard.remove();
+				}
+			})
+			.catch(function(error) {
+				toastr.warning(error.data);
+				console.log(error)
+			});
+	}
+
+	$scope.share = function(videoId, event) {
+		event.stopPropagation();
+		Swal.fire({
+			title: 'Kết nối Bạn Bè Với Video ',
+			html: `
+             <div style="position:relative; padding-bottom:56.25%; height:0;">
+             <iframe class="rounded" style="position:absolute; top:0; left:0; width:100%; height:100%;" 
+             src="https://www.youtube.com/embed/${videoId}?si=fzsGiunb6AmgVWhG" 
+             title="YouTube video player" frameborder="0" 
+             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+             </iframe>
+             </div>
+             `,
+			input: 'email',
+			inputPlaceholder: 'Nhập email (Email)',
+			showCancelButton: true,
+			confirmButtonText: 'Send (Gửi)',
+			cancelButtonText: 'Cancel (Hủy bỏ)',
+			showLoaderOnConfirm: true,
+			preConfirm: function(email) {
+				return $http.post('/LaughHub/api/share', {
+					id: videoId,
+					email: email,
+				})
+					.then(function(response) {
+						toastr.info(response.data);
+						Swal.fire('Gửi thành công!', 'Chia sẻ video thành công', 'success');
+						return response.data;
+						
+					})
+					.catch(function(error) {
+						toastr.warning(error.data);
+						console.log(error);
+						Swal.fire('Gửi thất bại!', error.data, 'error');
+					});
+			},
+			allowOutsideClick: function() {
+				return !Swal.isLoading();
+			}
+		});
+	};
+
 
 
 

@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt"%>
+	<fmt:setLocale value="${sessionScope.lang }" scope="request" />
+    <fmt:setBundle basename="client" scope="request" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +15,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="Askbootstrap">
 <meta name="author" content="Askbootstrap">
-<title>${content.title  }</title>
+<title>${videoWatch.title}${content.title  }</title>
 <!-- Favicon Icon -->
 <link rel="icon" type="image/png"
 	href="${pageContext.request.contextPath}/img/favicon.png">
@@ -42,6 +44,10 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css"
 	integrity="sha512-42kB9yDlYiCEfx2xVwq0q7hT4uf26FUgSIZBK8uiaEnTdShXjwr8Ip1V4xGJMg3mHkUt9nNuTDxunHF0/EgxLQ=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.css"
+	integrity="sha512-n1PBkhxQLVIma0hnm731gu/40gByOeBjlm5Z/PgwNxhJnyW1wYG8v7gPJDT6jpk0cMHfL8vUGUVjz3t4gXyZYQ=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
@@ -103,6 +109,11 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"
 		integrity="sha512-bUg5gaqBVaXIJNuebamJ6uex//mjxPk8kljQTdM1SwkNrQD7pjS+PerntUSD+QRWPNJ0tq54/x4zRV8bLrLhZg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.min.js"
+		integrity="sha512-csaTzpLFmF+Zl81hRtaZMsMhaeQDHO8E3gBkN3y3sCX9B1QSut68NxqcrxXH60BXPUQ/GB3LZzzIq9ZrxPAMTg=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<!-- Custom scripts for all pages-->
 	<script src="${pageContext.request.contextPath}/js/custom.js"></script>

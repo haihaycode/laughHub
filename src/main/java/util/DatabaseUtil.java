@@ -11,7 +11,7 @@ public class DatabaseUtil {
 	public static EntityManager connect() {
 		if (emf == null) {
 			// Nạp persistence.xml và tạo EntityManagerFactory
-			emf = Persistence.createEntityManagerFactory("laughhub1");
+			emf = Persistence.createEntityManagerFactory("bs5h14wg6zljcu2uhmfm");
 		}
 		// Tạo EntityManager để bắt đầu làm việc với CSDL
 		EntityManager em = emf.createEntityManager();

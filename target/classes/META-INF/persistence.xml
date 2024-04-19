@@ -3,7 +3,7 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
-	<persistence-unit name="laughhub1"
+	<persistence-unit name="bs5h14wg6zljcu2uhmfm"
 		transaction-type="RESOURCE_LOCAL">
 		<class>model.Favorite</class>
 		<class>model.Share</class>
@@ -11,12 +11,11 @@
 		<class>model.Video</class>
 		<class>model.VideoCategory</class>
 		<properties>
-			<property name="javax.persistence.jdbc.user" value="sa" />
-			<property name="javax.persistence.jdbc.driver"
-				value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
-			<property name="javax.persistence.jdbc.url"
-				value="jdbc:sqlserver://localhost:1433;databaseName=laughhub1;encrypt=false;trustServerCertificate=true;" />
-			<property name="javax.persistence.jdbc.password" value="123"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://bs5h14wg6zljcu2uhmfm-mysql.services.clever-cloud.com:3306/bs5h14wg6zljcu2uhmfm"/>
+			<property name="javax.persistence.jdbc.user" value="uyt4rlqm8ad5w1yp"/>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.password" value="5I1kmQYH8b8AvRHdXhIL"/>
+			
 		</properties>
 	</persistence-unit>
 </persistence>

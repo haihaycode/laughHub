@@ -40,7 +40,7 @@ public class User implements Serializable {
 	}
 
 	// bi-directional many-to-one association to Favorite
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Favorite> favorites;
     
 	// bi-directional many-to-one association to Share
